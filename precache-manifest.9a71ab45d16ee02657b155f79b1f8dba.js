@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "5f7c77046fdbd63ec28c",
-    "url": "/EficientEdu/static/css/main.c7fdc052.chunk.css"
+    "revision": "4802fe6a8b2d24e162d9",
+    "url": "/EficientEdu/static/css/main.48f8903e.chunk.css"
   },
   {
-    "revision": "5f7c77046fdbd63ec28c",
-    "url": "/EficientEdu/static/js/main.c0fed393.chunk.js"
+    "revision": "4802fe6a8b2d24e162d9",
+    "url": "/EficientEdu/static/js/main.a01e7d64.chunk.js"
   },
   {
     "revision": "8d055a45b541d4ace034",
@@ -20,15 +20,11 @@ self.__precacheManifest = [
     "url": "/EficientEdu/static/js/3.1a378e0a.chunk.js"
   },
   {
-    "revision": "06e733283fa43d1dd57738cfc409adbd",
-    "url": "/EficientEdu/static/media/logo.06e73328.svg"
-  },
-  {
     "revision": "1ea13b51248552e48a29b1e04ee95870",
     "url": "/EficientEdu/static/media/casa01.1ea13b51.png"
   },
   {
-    "revision": "caa170a93e4101d929b5587a81e05c88",
+    "revision": "4f6f9b62ce3d34f9dff82d770bf21a83",
     "url": "/EficientEdu/index.html"
   }
 ];
