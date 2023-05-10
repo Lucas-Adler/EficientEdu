@@ -535,7 +535,7 @@ const CustomTooltip = ({ active, payload, label}) => {
          </linearGradient>
          </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <YAxis dataKey="valor" />
+          
           <Tooltip content={<CustomTooltip/>} animationEasing='ease-in-out' />
           <Bar dataKey="valor" type='monotone' fill='url(#colorUv)' fillOpacity={1} stroke='black' strokeWidth={1} /> 
         </BarChart>
