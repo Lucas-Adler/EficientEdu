@@ -123,8 +123,8 @@ const CustomTooltip = ({ active, payload, label}) => {
            {`${payload[0].payload.vidro}`}<br/>
            {`${payload[0].payload.wwr}`}<br/>
            {`${payload[0].payload.norte}`}<br/>
-           {`${payload[0].payload.bh}`}<br/>
-           {`${payload[0].payload.bv}`}
+           {`${payload[0].payload.bv}`}<br/>
+           {`${payload[0].payload.bh}`}
           </p> 
       </div>
      
