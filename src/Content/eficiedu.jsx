@@ -385,7 +385,7 @@ const CustomTooltip = ({ active, payload, label}) => {
         </div>
 
         <div id="brise_v">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">Brise Vertical:</h2>
+          <h2 className="text-m -mb-2.5 mt-2 font-semibold">Brise Vertical (30 cm):</h2>
           <div id="BV" className="relative my-0 pb-1"></div>
           <Listbox value={selectedBV} onChange={setSelectedBV}>
             <div className="relative mt-1 py-1">
@@ -446,7 +446,7 @@ const CustomTooltip = ({ active, payload, label}) => {
 
         <div id="brise_h">
           <h2 className="text-m -mb-2.5 mt-2 font-semibold">
-            Brise Horizontal:
+            Brise Horizontal (5 unidades):
           </h2>
           <div id="BH" className="relative my-0 pb-7">
             <Listbox value={selectedBH} onChange={setSelectedBH}>
