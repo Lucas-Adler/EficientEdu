@@ -116,7 +116,7 @@ const CustomTooltip = ({ active, payload, label}) => {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip">
-        <p className="label">{'Simulação ' + `${label + 1 } : ${payload[0].value}` + ' KWh/ano'}</p>
+        <p className="label">{'Simulação ' + `${label + 1 } : ${payload[0].value - 1754}` + ' KWh/ano'}</p>
         <p className="intro">Valores Escolhidos: </p>
         <p className="desc">
            {`${payload[0].payload.cidade}`}<br/>
@@ -125,8 +125,7 @@ const CustomTooltip = ({ active, payload, label}) => {
            {`${payload[0].payload.norte}`}<br/>
            {`${payload[0].payload.bh}`}<br/>
            {`${payload[0].payload.bv}`}
-          </p>
-
+          </p> 
       </div>
      
     );
