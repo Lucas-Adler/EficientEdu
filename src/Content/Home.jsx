@@ -28,19 +28,21 @@ export default function Home() {
             hover:bg-secondary-300 hover:transition hover:ease-in hover:duration-200 hover:shadow-md
             dark:border-white rounded-lg" href="#Sim">Começe Agora!</button></a>
             <br/>
-            <a onClick={() => setIsHeadlessOpen(true)} className="italic text-primary-500 mx-auto">Saiba Mais →</a> 
+            <a onClick={() => setIsHeadlessOpen(true)} className="italic text-primary-500 mx-auto cursor-pointer">Saiba Mais →</a> 
             </div>
         </div>
         <div className="col-start-2 ">
           <img src={image01} className="justify-self-end lg:relative md:inset-0 lg:visible max-w-full lg:max-w-lg lg:mr-12" alt="logo" />
         </div>
-         <SlideOver
+         <SlideOver 
                 open={isHeadlessOpen}
                 setOpen={setIsHeadlessOpen}
-                title="Item Details"
+                title="Sobre"
               >
                 <div className="flex flex-col z-100">
-                  <input type="text" className="border-gray-300 rounded-md" />
+                  O aplicativo foi desenvolvido utilizando um banco de dados previamente configurado, tendo a simulação feita a partir do software EnergyPlus, com os seguintes parâmetros e grandezas:
+
+
                   <Button
                     className="mt-4"
                     onClick={() => setIsHeadlessOpen(false)}
