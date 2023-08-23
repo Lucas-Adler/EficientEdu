@@ -1,0 +1,3 @@
+[submodule "EficientEdu"]
+	path = EficientEdu
+	url = https://github.com/Lucas-Adler/EficientEdu.git
