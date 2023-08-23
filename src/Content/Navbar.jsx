@@ -1,14 +1,9 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import logo from '../Images/Logo-Full.png'
 import { FiMenu } from 'react-icons/fi'
 
 export default function Navbar() {
-  let Links = [
-    { name: 'Home', link: '/' },
-    { name: 'App', link: '/' },
-    // { name: 'RoadMap', link: '/' },
-    { name: 'Contato', link: '/' }
-  ]
+ 
   const [open, setOpen] = useState(false)
 
   return (

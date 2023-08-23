@@ -1,8 +1,16 @@
-import React from "react"
+import { useState } from "react";
+
 import image01 from "../Images/Iso-office-2.png"
+import SlideOver from '../Content/Slide-Over'
+import Button from '../Content/Button'
 
 
 export default function Home() {
+
+   // eslint-disable-next-line no-unused-vars
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHeadlessOpen, setIsHeadlessOpen] = useState(false);
+
   return( 
       <section className="flex items-center justify-between lg:max-w-[75%] lg:mx-auto max-w-full px-[8%] flex-wrap w-full py-[15%] h-fit font-display" id="Home">
         <div className="flex flex-col max-w-[310px]">
@@ -20,12 +28,27 @@ export default function Home() {
             hover:bg-secondary-300 hover:transition hover:ease-in hover:duration-200 hover:shadow-md
             dark:border-white rounded-lg" href="#Sim">Começe Agora!</button></a>
             <br/>
-            <a href="http://www.google.com" className="italic text-primary-500 mx-auto">Saiba Mais →</a> 
+            <a onClick={() => setIsHeadlessOpen(true)} className="italic text-primary-500 mx-auto">Saiba Mais →</a> 
             </div>
         </div>
         <div className="col-start-2 ">
           <img src={image01} className="justify-self-end lg:relative md:inset-0 lg:visible max-w-full lg:max-w-lg lg:mr-12" alt="logo" />
         </div>
+         <SlideOver
+                open={isHeadlessOpen}
+                setOpen={setIsHeadlessOpen}
+                title="Item Details"
+              >
+                <div className="flex flex-col z-100">
+                  <input type="text" className="border-gray-300 rounded-md" />
+                  <Button
+                    className="mt-4"
+                    onClick={() => setIsHeadlessOpen(false)}
+                  >
+                    OK
+                  </Button>
+                </div>
+              </SlideOver>
       </section>
   )
 }

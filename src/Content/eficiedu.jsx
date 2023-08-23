@@ -1,20 +1,18 @@
-import React, { useState, Fragment, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useState, Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { data } from './DataBase'
 import {
-  BarChart,
-  Bar,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts'
+  CheckIcon,
+  ChevronUpDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
+} from '@heroicons/react/20/solid'
+import { data } from './DataBase'
+import * as recharts from 'recharts'
 import office from '../Images/iso-office-2.png'
 
-
 const city = [
-  
   { id: 1, name: 'Florianopolis - SC', code: 'Fln', unavailable: false },
   { id: 2, name: 'Salvador - BA', code: 'Ssa', unavailable: false },
   { id: 3, name: 'Belo Horizonte - MG', code: 'BH', unavailable: false }
@@ -60,6 +58,7 @@ export default function eficiedu() {
   // const [search, setSearc] = useState('')
   const [btnState, setBtnState] = useState(false)
 
+  // eslint-disable-next-line no-unused-vars
   let toggleClassCheck = btnState ? 'invisible' : null
 
   const [selectedC, setSelectedC] = useState(0)
@@ -136,469 +135,501 @@ export default function eficiedu() {
     }
   }
 
-const slideLeft = () => {
-  var slider = document.getElementById('content');
-  slider.scrollLeft = slider.scrollLeft - 350;
-}
+  const slideLeft = () => {
+    var slider = document.getElementById('content')
+    slider.scrollLeft = slider.scrollLeft - 350
+  }
 
-const slideRight = () => {
-  var slider = document.getElementById('content');
-  slider.scrollLeft = slider.scrollLeft + 290;
-}
+  const slideRight = () => {
+    var slider = document.getElementById('content')
+    slider.scrollLeft = slider.scrollLeft + 290
+  }
   return (
     <section
       className=" lg:content-center w-full max-w-full h-[1000px] lg:justify-between pt-10 lg:mx-auto lg:max-w-[75%]  font-display "
       id="Sim"
     >
-
       {/* //Botao de ir para os lados */}
-      <div className='flex justify-start max-w-full lg:hidden'>
-      <button onClick={slideLeft} className='bg-[#e8e8e8] p-2 rounded-full'>
-        <ChevronLeftIcon 
-        className="text-gray-40 h-7 w-7"
-        aria-hidden="true"/>
-      </button>
-      <button onClick={slideRight} className='bg-[#e8e8e8] p-2 rounded-full ml-4'>
-        <ChevronRightIcon
-        className="text-gray-40 h-7 w-7"
-        aria-hidden="true"
-        />
-      </button>
-      </div>
-
-      {/* preciso ajustar aqui pra poder funcionar o botão de ir para os lados sem desconfigurar o grid */}
-      <div id='content' className='grid grid-flow-col scrollbar-hide m-3 h-full scroll-smooth gap-4 overflow-x-auto '>
-
-
-
-
-      {/* Seletor de parametros (usei o headless UI) */}   
-
-      <div
-        id="options"
-        className="flex flex-col relative h-[613px] w-fit p-4  lg:flex-none lg:col-span-1"
-      >
-        <div id='image'>
-          <img src={office} alt="" className=' w-[354px]  z-20 lg:pb-10 pb-5'/>
-        </div>
-
-        <div id="city">
-        <div id="Cities" className="relative my-0 pb-1 mx-8">
-  <Listbox value={selectedC} onChange={setSelectedC} >
-  
-  <div className="relative py-1 ">
-
-    <Listbox.Button className="flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition  hover:duration-100 hover:ease-in  lg:hover:shadow-md text-xl"
-    >
-      <span>{selectedC ? selectedC.name : <font color='grey'>Selecione a Cidade</font>}</span>
-      <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-        <ChevronUpDownIcon
-          className="text-gray-40 h-5 w-5"
-          aria-hidden="true"
-        />
-      </span>
-    </Listbox.Button>
-    <Transition
-      as={Fragment}
-      leave="transition ease-in duration-100"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-        {city.map((person, personIdx) => (
-          <Listbox.Option
-            key={personIdx}
-            className={({ active }) =>
-              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                active
-                  ? 'bg-amber-100 text-amber-900'
-                  : 'text-gray-900'
-              }`
-            }
-            value={person}
-          >
-            {({ selected }) => (
-              <>
-                <span
-                  className={`block truncate ${
-                    selected ? 'font-medium' : 'font-normal'
-                  }`}
-                >
-                  {person.name}
-                </span>
-                {selected ? (
-                  <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                    <CheckIcon
-                      className="h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                ) : null}
-              </>
-            )}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Transition>
-  </div>
-</Listbox>
-</div>
-        
-        </div>
-
-        <div id="glass">
-          
-          <div id="Glass" className="relative my-0 pb-1 mx-8">
-            <Listbox value={selectedG} onChange={setSelectedG}>
-              <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
-                  <span className="block truncate">{selectedG ? selectedG.name: <font color='grey'>Selecione o tipo de Vidro</font>}</span>
-                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon
-                      className="text-gray-400 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-                    {glass.map((person, personIdx) => (
-                      <Listbox.Option
-                        key={personIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-amber-100 text-amber-900'
-                              : 'text-gray-900'
-                          }`
-                        }
-                        value={person}
-                      >
-                        {({ selected }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              {person.name}
-                            </span>
-                            {selected ? (
-                              <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-          </div>
-        </div>
-
-        <div id="wwr">
-         
-          <div id="WWR" className="relative my-0 pb-1 mx-8">
-            <Listbox value={selectedW} onChange={setSelectedW}>
-              <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
-                  <span className="block truncate">{selectedW ? selectedW.name: <font color='grey'>Selecione a RJP</font>}</span>
-                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon
-                      className="text-gray-400 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-                    {wwr.map((person, personIdx) => (
-                      <Listbox.Option
-                        key={personIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-amber-100 text-amber-900'
-                              : 'text-gray-900'
-                          }`
-                        }
-                        value={person}
-                      >
-                        {({ selected }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              {person.name}
-                            </span>
-                            {selected ? (
-                              <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-          </div>
-        </div>
-
-        <div id="orientation">
-         
-          <div id="Orientation" className="relative my-0 pb-1 mx-8">
-            <Listbox value={selectedN} onChange={setSelectedN}>
-              <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
-                  <span className="block truncate">{selectedN ? selectedN.name: <font color='grey'>Selecione a Orientação</font>}</span>
-                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon
-                      className="text-gray-400 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-                    {orientation.map((person, personIdx) => (
-                      <Listbox.Option
-                        key={personIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-amber-100 text-amber-900'
-                              : 'text-gray-900'
-                          }`
-                        }
-                        value={person}
-                      >
-                        {({ selected }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              {person.name}
-                            </span>
-                            {selected ? (
-                              <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-          </div>
-        </div>
-
-        <div id="brise_v">
-          
-          <div id="BV" className="relative my-0 pb-1 mx-8">
-          <Listbox value={selectedBV} onChange={setSelectedBV}>
-            <div className="relative mt-1 py-1">
-              <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
-                <span className="block truncate ">{selectedBV ? selectedBV.name: <font color='grey'>Sel. o Brise Vert. (30 cm)</font>}</span>
-                <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-                  <ChevronUpDownIcon
-                    className="text-gray-40 h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </span>
-              </Listbox.Button>
-              <Transition
-                as={Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-                  {brise_v.map((person, personIdx) => (
-                    <Listbox.Option
-                      key={personIdx}
-                      className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active
-                            ? 'bg-amber-100 text-amber-900'
-                            : 'text-gray-900'
-                        }`
-                      }
-                      value={person}
-                    >
-                      {({ selected }) => (
-                        <>
-                          <span
-                            className={`block truncate ${
-                              selected ? 'font-medium' : 'font-normal'
-                            }`}
-                          >
-                            {person.name}
-                          </span>
-                          {selected ? (
-                            <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-            </div>
-          </Listbox>
-        </div>
-        </div>
-        <div id="brise_h">
-          
-          <div id="BH" className="relative my-0 pb-5 mx-8">
-            <Listbox value={selectedBH} onChange={setSelectedBH}>
-              <div className="relative mt-1 py-1">
-                <Listbox.Button className=" flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
-                  <span className="block truncate">{selectedBH ? selectedBH.name: <font color='grey'>Sel. o Brise Hor. (5 un)</font>}</span>
-                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon
-                      className="text-gray-40 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
-                    {brise_h.map((person, personIdx) => (
-                      <Listbox.Option
-                        key={personIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-amber-100 text-amber-900'
-                              : 'text-gray-900'
-                          }`
-                        }
-                        value={person}
-                      >
-                        {({ selected }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              {person.name}
-                            </span>
-                            {selected ? (
-                              <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-          </div>
-        </div>
-
+      <div className="flex justify-start max-w-full lg:hidden">
+        <button onClick={slideLeft} className="bg-[#e8e8e8] p-2 rounded-full">
+          <ChevronLeftIcon
+            className="text-gray-40 h-7 w-7"
+            aria-hidden="true"
+          />
+        </button>
         <button
-          className=" flex w-[190px] font-display text-2xl items-center justify-center rounded border-2 bg-primary-50 py-2 transition hover:bg-secondary-300 hover:shadow-md hover:duration-100 hover:ease-in mx-auto "
-          onClick={handleClick}
+          onClick={slideRight}
+          className="bg-[#e8e8e8] p-2 rounded-full ml-4"
         >
-          Simular
+          <ChevronRightIcon
+            className="text-gray-40 h-7 w-7"
+            aria-hidden="true"
+          />
         </button>
       </div>
 
-      {/* Para os gráficos usei o recharts */}
-      <div className="w-fit md:w-auto relative h-fit rounded-lg  shadow-lg bg-[#e8e8e8] p-2 col-span-2 lg:justify-items-stretch ">
-        <ResponsiveContainer width="100%" height={596}>
-          <BarChart
-            data={testData}
-            margin={{
-              top: 25,
-              right: 20,
-              left: 20,
-              bottom: 25
-            }}
+      {/* preciso ajustar aqui pra poder funcionar o botão de ir para os lados sem desconfigurar o grid */}
+      <div
+        id="content"
+        className="grid grid-flow-col scrollbar-hide m-3 h-full scroll-smooth gap-4 overflow-x-auto "
+      >
+        {/* Seletor de parametros (usei o headless UI) */}
+
+        <div
+          id="options"
+          className="flex flex-col relative h-[613px] w-fit p-4  lg:flex-none lg:col-span-1"
+        >
+          <div id="image">
+            <img
+              src={office}
+              alt=""
+              className=" w-[354px]  z-20 lg:pb-10 pb-5"
+            />
+          </div>
+
+          <div id="city">
+            <div id="Cities" className="relative my-0 pb-1 mx-8">
+              <Listbox value={selectedC} onChange={setSelectedC}>
+                <div className="relative py-1 ">
+                  <Listbox.Button className="flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition  hover:duration-100 hover:ease-in  lg:hover:shadow-md text-xl">
+                    <span>
+                      {selectedC ? (
+                        selectedC.name
+                      ) : (
+                        <font color="grey">Selecione a Cidade</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-40 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {city.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+
+          <div id="glass">
+            <div id="Glass" className="relative my-0 pb-1 mx-8">
+              <Listbox value={selectedG} onChange={setSelectedG}>
+                <div className="relative mt-1  py-1">
+                  <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                    <span className="block truncate">
+                      {selectedG ? (
+                        selectedG.name
+                      ) : (
+                        <font color="grey">Selecione o tipo de Vidro</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-400 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {glass.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+
+          <div id="wwr">
+            <div id="WWR" className="relative my-0 pb-1 mx-8">
+              <Listbox value={selectedW} onChange={setSelectedW}>
+                <div className="relative mt-1  py-1">
+                  <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                    <span className="block truncate">
+                      {selectedW ? (
+                        selectedW.name
+                      ) : (
+                        <font color="grey">Selecione a RJP</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-400 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {wwr.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+
+          <div id="orientation">
+            <div id="Orientation" className="relative my-0 pb-1 mx-8">
+              <Listbox value={selectedN} onChange={setSelectedN}>
+                <div className="relative mt-1  py-1">
+                  <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                    <span className="block truncate">
+                      {selectedN ? (
+                        selectedN.name
+                      ) : (
+                        <font color="grey">Selecione a Orientação</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-400 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {orientation.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+
+          <div id="brise_v">
+            <div id="BV" className="relative my-0 pb-1 mx-8">
+              <Listbox value={selectedBV} onChange={setSelectedBV}>
+                <div className="relative mt-1 py-1">
+                  <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                    <span className="block truncate ">
+                      {selectedBV ? (
+                        selectedBV.name
+                      ) : (
+                        <font color="grey">Sel. o Brise Vert. (30 cm)</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-40 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {brise_v.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+          <div id="brise_h">
+            <div id="BH" className="relative my-0 pb-5 mx-8">
+              <Listbox value={selectedBH} onChange={setSelectedBH}>
+                <div className="relative mt-1 py-1">
+                  <Listbox.Button className=" flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                    <span className="block truncate">
+                      {selectedBH ? (
+                        selectedBH.name
+                      ) : (
+                        <font color="grey">Sel. o Brise Hor. (5 un)</font>
+                      )}
+                    </span>
+                    <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="text-gray-40 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+                      {brise_h.map((person, personIdx) => (
+                        <Listbox.Option
+                          key={personIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              active
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'text-gray-900'
+                            }`
+                          }
+                          value={person}
+                        >
+                          {({ selected }) => (
+                            <>
+                              <span
+                                className={`block truncate ${
+                                  selected ? 'font-medium' : 'font-normal'
+                                }`}
+                              >
+                                {person.name}
+                              </span>
+                              {selected ? (
+                                <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            </div>
+          </div>
+
+          <button
+            className=" flex w-[190px] font-display text-2xl items-center justify-center rounded border-2 bg-primary-50 py-2 transition hover:bg-secondary-300 hover:shadow-md hover:duration-100 hover:ease-in mx-auto "
+            onClick={handleClick}
           >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#5eead4" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#5eead4" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" />
+            Simular
+          </button>
+        </div>
 
-            <Tooltip
-              content={<CustomTooltip />}
-              animationEasing="ease-in-out"
-            />
-            <Bar
-              dataKey="valor"
-              type="monotone"
-              fill="url(#colorUv)"
-              fillOpacity={1}
-              stroke="black"
-              strokeWidth={1}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+        {/* Para os gráficos usei o recharts */}
+        <div className="w-fit md:w-auto relative h-fit rounded-lg  shadow-lg bg-[#e8e8e8] p-2 col-span-2 lg:justify-items-stretch ">
+          <recharts.ResponsiveContainer width="100%" height={596}>
+            <recharts.BarChart
+              data={testData}
+              margin={{
+                top: 25,
+                right: 20,
+                left: 20,
+                bottom: 25
+              }}
+            >
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#5eead4" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#5eead4" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <recharts.CartesianGrid strokeDasharray="3 3" />
 
-      {/* uma segunda ou terceira coluna, talvez um popUp com o modelo a ser simulado */}
-      
+              <recharts.Tooltip
+                content={<CustomTooltip />}
+                animationEasing="ease-in-out"
+              />
+              <recharts.Bar
+                dataKey="valor"
+                type="monotone"
+                fill="url(#colorUv)"
+                fillOpacity={1}
+                stroke="black"
+                strokeWidth={1}
+              />
+            </recharts.BarChart>
+          </recharts.ResponsiveContainer>
+        </div>
 
-      {/* Aqui penso em apresentar os resultados em uma tabela */}
-      {/* <div className=" flex flex-col lg:flex-row max-w-full w-full lg:order-3 m-6 p-4 shadow-lg rounded bg-[#e8e8e8]">
+        {/* uma segunda ou terceira coluna, talvez um popUp com o modelo a ser simulado */}
+
+        {/* Aqui penso em apresentar os resultados em uma tabela */}
+        {/* <div className=" flex flex-col lg:flex-row max-w-full w-full lg:order-3 m-6 p-4 shadow-lg rounded bg-[#e8e8e8]">
         resultados
       </div> */}
       </div>
