@@ -34,7 +34,6 @@
 
 // export default App
 
-import React from "react"
 
 import './index.css';
 import Navbar from './Content/Navbar'
@@ -48,7 +47,7 @@ import Questionario from "./Content/Questionário";
 
  function App() {
    return (
-     <div className="snap-y snap-mandatory overflow-scroll h-screen bg-[#f0F0F0] scroll-smooth">
+     <div className="snap-y snap-mandatory overflow-scroll h-full bg-[#f0F0F0] scroll-smooth ">
      
          <Navbar/>
          <Home />

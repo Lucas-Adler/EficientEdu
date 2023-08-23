@@ -1,13 +1,20 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { data } from './DataBase';
-import {BarChart, Bar,YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
-
-
+import React, { useState, Fragment, useEffect } from 'react'
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { data } from './DataBase'
+import {
+  BarChart,
+  Bar,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from 'recharts'
+import office from '../Images/iso-office-2.png'
 
 
 const city = [
+  
   { id: 1, name: 'Florianopolis - SC', code: 'Fln', unavailable: false },
   { id: 2, name: 'Salvador - BA', code: 'Ssa', unavailable: false },
   { id: 3, name: 'Belo Horizonte - MG', code: 'BH', unavailable: false }
@@ -47,22 +54,20 @@ const brise_h = [
   { id: 1, name: '10 cm', code: '10', unavaible: false },
   { id: 1, name: '20 cm', code: '20', unavaible: false },
   { id: 1, name: '30 cm', code: '30', unavaible: false }
-];
+]
 
 export default function eficiedu() {
   // const [search, setSearc] = useState('')
   const [btnState, setBtnState] = useState(false)
-  
- 
 
   let toggleClassCheck = btnState ? 'invisible' : null
 
-  const [selectedC, setSelectedC] = useState(city[0])
-  const [selectedN, setSelectedN] = useState(orientation[0])
-  const [selectedG, setSelectedG] = useState(glass[0])
-  const [selectedW, setSelectedW] = useState(wwr[0])
-  const [selectedBV, setSelectedBV] = useState(brise_v[0])
-  const [selectedBH, setSelectedBH] = useState(brise_h[0])
+  const [selectedC, setSelectedC] = useState(0)
+  const [selectedN, setSelectedN] = useState(0)
+  const [selectedG, setSelectedG] = useState(0)
+  const [selectedW, setSelectedW] = useState(0)
+  const [selectedBV, setSelectedBV] = useState(0)
+  const [selectedBH, setSelectedBH] = useState(0)
 
   const filteredData = data
     .filter(
@@ -75,139 +80,180 @@ export default function eficiedu() {
         data.briseh === selectedBH.code
     )
     .map(function (data) {
-      return {valor: parseFloat(data.TotalElectricity), 
-              cidade: selectedC.name, 
-              vidro: selectedG.name, 
-              wwr: selectedW.name,
-              norte: selectedN.name,
-              bh: selectedBH.name,
-              bv: selectedBV.name};
-    } )
+      return {
+        valor: parseFloat(data.TotalElectricity),
+        cidade: selectedC.name,
+        vidro: selectedG.name,
+        wwr: selectedW.name,
+        norte: selectedN.name,
+        bh: selectedBH.name,
+        bv: selectedBV.name
+      }
+    })
 
-     
+  const [testData, setData] = useState([])
+  const [selectedOpt, setSelectedOpt] = useState({})
+  let data_02
 
-  
-    
-   
-  const [testData, setData] = useState([]);
-  const [selectedOpt, setSelectedOpt] = useState({});
-  const [barGraphData, setBarGraphData] = useState({})
-
-
- 
-let data_02 
-
-
-function handleClick() {
-   "use strict" 
+  function handleClick() {
+    'use strict'
     setBtnState(btnState => !btnState)
-    
+
     data_02 = filteredData.shift()
-    
 
     const newData = [...testData, data_02]
-    setData(newData);
+    setData(newData)
     setSelectedOpt(newData)
   }
-  
+
   console.log(selectedOpt)
- 
-const CustomTooltip = ({ active, payload, label}) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{'Simulação ' + `${label + 1 } : ${payload[0].value - 1754}` + ' KWh/ano'}</p>
-        <p className="intro">Valores Escolhidos: </p>
-        <p className="desc">
-           {`${payload[0].payload.cidade}`}<br/>
-           {`${payload[0].payload.vidro}`}<br/>
-           {`${payload[0].payload.wwr}`}<br/>
-           {`${payload[0].payload.norte}`}<br/>
-           {`${payload[0].payload.bv}`}<br/>
-           {`${payload[0].payload.bh}`}
-          </p> 
-      </div>
-     
-    );
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">
+            {'Simulação ' +
+              `${label + 1} : ${payload[0].value - 1754}` +
+              ' KWh/ano'}
+          </p>
+          <p className="intro">Valores Escolhidos: </p>
+          <p className="desc">
+            {`${payload[0].payload.cidade}`}
+            <br />
+            {`${payload[0].payload.vidro}`}
+            <br />
+            {`${payload[0].payload.wwr}`}
+            <br />
+            {`${payload[0].payload.norte}`}
+            <br />
+            {`${payload[0].payload.bv}`}
+            <br />
+            {`${payload[0].payload.bh}`}
+          </p>
+        </div>
+      )
+    }
   }
+
+const slideLeft = () => {
+  var slider = document.getElementById('content');
+  slider.scrollLeft = slider.scrollLeft - 350;
 }
 
-
-
-
-  
+const slideRight = () => {
+  var slider = document.getElementById('content');
+  slider.scrollLeft = slider.scrollLeft + 290;
+}
   return (
-    <section className="flex flex-col lg:flex-row content-center h-screen w-full max-w-full  justify-between px-[8%] py-[20%] lg:mx-auto lg:max-w-7xl lg:py-36 font-display"  id='Sim'>
-      <div id="options" className="flex flex-col">
+    <section
+      className=" lg:content-center w-full max-w-full h-[1000px] lg:justify-between pt-10 lg:mx-auto lg:max-w-[75%]  font-display "
+      id="Sim"
+    >
+
+      {/* //Botao de ir para os lados */}
+      <div className='flex justify-start max-w-full lg:hidden'>
+      <button onClick={slideLeft} className='bg-[#e8e8e8] p-2 rounded-full'>
+        <ChevronLeftIcon 
+        className="text-gray-40 h-7 w-7"
+        aria-hidden="true"/>
+      </button>
+      <button onClick={slideRight} className='bg-[#e8e8e8] p-2 rounded-full ml-4'>
+        <ChevronRightIcon
+        className="text-gray-40 h-7 w-7"
+        aria-hidden="true"
+        />
+      </button>
+      </div>
+
+      {/* preciso ajustar aqui pra poder funcionar o botão de ir para os lados sem desconfigurar o grid */}
+      <div id='content' className='grid grid-flow-col scrollbar-hide m-3 h-full scroll-smooth gap-4 overflow-x-auto '>
+
+
+
+
+      {/* Seletor de parametros (usei o headless UI) */}   
+
+      <div
+        id="options"
+        className="flex flex-col relative h-[613px] w-fit p-4  lg:flex-none lg:col-span-1"
+      >
+        <div id='image'>
+          <img src={office} alt="" className=' w-[354px]  z-20 lg:pb-10 pb-5'/>
+        </div>
+
         <div id="city">
-          <h2 className="text-m my-0 -mb-1.5 font-semibold">Cidade:</h2>
-          <div id="Cities" className="relative my-0 pb-1">
-            <Listbox value={selectedC} onChange={setSelectedC}>
-              <div className="relative py-1">
-                <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                  <span className="block truncate ">{selectedC.name}</span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon
-                      className="text-gray-40 h-5 w-5"
+        <div id="Cities" className="relative my-0 pb-1 mx-8">
+  <Listbox value={selectedC} onChange={setSelectedC} >
+  
+  <div className="relative py-1 ">
+
+    <Listbox.Button className="flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition  hover:duration-100 hover:ease-in  lg:hover:shadow-md text-xl"
+    >
+      <span>{selectedC ? selectedC.name : <font color='grey'>Selecione a Cidade</font>}</span>
+      <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
+        <ChevronUpDownIcon
+          className="text-gray-40 h-5 w-5"
+          aria-hidden="true"
+        />
+      </span>
+    </Listbox.Button>
+    <Transition
+      as={Fragment}
+      leave="transition ease-in duration-100"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
+        {city.map((person, personIdx) => (
+          <Listbox.Option
+            key={personIdx}
+            className={({ active }) =>
+              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                active
+                  ? 'bg-amber-100 text-amber-900'
+                  : 'text-gray-900'
+              }`
+            }
+            value={person}
+          >
+            {({ selected }) => (
+              <>
+                <span
+                  className={`block truncate ${
+                    selected ? 'font-medium' : 'font-normal'
+                  }`}
+                >
+                  {person.name}
+                </span>
+                {selected ? (
+                  <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+                    <CheckIcon
+                      className="h-5 w-5"
                       aria-hidden="true"
                     />
                   </span>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
-                    {city.map((person, personIdx) => (
-                      <Listbox.Option
-                        key={personIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? 'bg-amber-100 text-amber-900'
-                              : 'text-gray-900'
-                          }`
-                        }
-                        value={person}
-                      >
-                        {({ selected }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? 'font-medium' : 'font-normal'
-                              }`}
-                            >
-                              {person.name}
-                            </span>
-                            {selected ? (
-                              <span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-          </div>
+                ) : null}
+              </>
+            )}
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Transition>
+  </div>
+</Listbox>
+</div>
+        
         </div>
 
         <div id="glass">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">Vidro:</h2>
-          <div id="Glass" className="relative my-0 pb-1">
+          
+          <div id="Glass" className="relative my-0 pb-1 mx-8">
             <Listbox value={selectedG} onChange={setSelectedG}>
               <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                  <span className="block truncate">{selectedG.name}</span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                  <span className="block truncate">{selectedG ? selectedG.name: <font color='grey'>Selecione o tipo de Vidro</font>}</span>
+                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
                       className="text-gray-400 h-5 w-5"
                       aria-hidden="true"
@@ -220,7 +266,7 @@ const CustomTooltip = ({ active, payload, label}) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
+                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
                     {glass.map((person, personIdx) => (
                       <Listbox.Option
                         key={personIdx}
@@ -262,13 +308,13 @@ const CustomTooltip = ({ active, payload, label}) => {
         </div>
 
         <div id="wwr">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">WWR:</h2>
-          <div id="WWR" className="relative my-0 pb-1">
+         
+          <div id="WWR" className="relative my-0 pb-1 mx-8">
             <Listbox value={selectedW} onChange={setSelectedW}>
               <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                  <span className="block truncate">{selectedW.name}</span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                  <span className="block truncate">{selectedW ? selectedW.name: <font color='grey'>Selecione a RJP</font>}</span>
+                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
                       className="text-gray-400 h-5 w-5"
                       aria-hidden="true"
@@ -281,7 +327,7 @@ const CustomTooltip = ({ active, payload, label}) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
+                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
                     {wwr.map((person, personIdx) => (
                       <Listbox.Option
                         key={personIdx}
@@ -323,13 +369,13 @@ const CustomTooltip = ({ active, payload, label}) => {
         </div>
 
         <div id="orientation">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">Orientação:</h2>
-          <div id="Orientation" className="relative my-0 pb-1">
+         
+          <div id="Orientation" className="relative my-0 pb-1 mx-8">
             <Listbox value={selectedN} onChange={setSelectedN}>
               <div className="relative mt-1  py-1">
-                <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                  <span className="block truncate">{selectedN.name}</span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                  <span className="block truncate">{selectedN ? selectedN.name: <font color='grey'>Selecione a Orientação</font>}</span>
+                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
                       className="text-gray-400 h-5 w-5"
                       aria-hidden="true"
@@ -342,7 +388,7 @@ const CustomTooltip = ({ active, payload, label}) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
+                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
                     {orientation.map((person, personIdx) => (
                       <Listbox.Option
                         key={personIdx}
@@ -384,13 +430,13 @@ const CustomTooltip = ({ active, payload, label}) => {
         </div>
 
         <div id="brise_v">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">Brise Vertical (30 cm):</h2>
-          <div id="BV" className="relative my-0 pb-1"></div>
+          
+          <div id="BV" className="relative my-0 pb-1 mx-8">
           <Listbox value={selectedBV} onChange={setSelectedBV}>
             <div className="relative mt-1 py-1">
-              <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                <span className="block truncate ">{selectedBV.name}</span>
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <Listbox.Button className="hover: flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                <span className="block truncate ">{selectedBV ? selectedBV.name: <font color='grey'>Sel. o Brise Vert. (30 cm)</font>}</span>
+                <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon
                     className="text-gray-40 h-5 w-5"
                     aria-hidden="true"
@@ -403,7 +449,7 @@ const CustomTooltip = ({ active, payload, label}) => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
+                <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
                   {brise_v.map((person, personIdx) => (
                     <Listbox.Option
                       key={personIdx}
@@ -442,17 +488,15 @@ const CustomTooltip = ({ active, payload, label}) => {
             </div>
           </Listbox>
         </div>
-
+        </div>
         <div id="brise_h">
-          <h2 className="text-m -mb-2.5 mt-2 font-semibold">
-            Brise Horizontal (5 unidades):
-          </h2>
-          <div id="BH" className="relative my-0 pb-7">
+          
+          <div id="BH" className="relative my-0 pb-5 mx-8">
             <Listbox value={selectedBH} onChange={setSelectedBH}>
               <div className="relative mt-1 py-1">
-                <Listbox.Button className="hover: flex w-[200px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in">
-                  <span className="block truncate ">{selectedBH.name}</span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <Listbox.Button className=" flex w-[300px] items-center justify-between rounded border-2 bg-primary-50 p-2 transition hover:shadow-md hover:duration-100 hover:ease-in text-xl">
+                  <span className="block truncate">{selectedBH ? selectedBH.name: <font color='grey'>Sel. o Brise Hor. (5 un)</font>}</span>
+                  <span className="pointer-events-none relative inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
                       className="text-gray-40 h-5 w-5"
                       aria-hidden="true"
@@ -465,7 +509,7 @@ const CustomTooltip = ({ active, payload, label}) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute z-20 w-[200px] border-2 bg-primary-50">
+                  <Listbox.Options className="absolute z-20 w-[300px] border-2 bg-primary-50">
                     {brise_h.map((person, personIdx) => (
                       <Listbox.Option
                         key={personIdx}
@@ -507,43 +551,57 @@ const CustomTooltip = ({ active, payload, label}) => {
         </div>
 
         <button
-          className="hover: flex w-[200px] items-center justify-center rounded border-2 bg-primary-50 p-2 transition hover:bg-secondary-300 hover:shadow-md hover:duration-100 hover:ease-in"
+          className=" flex w-[190px] font-display text-2xl items-center justify-center rounded border-2 bg-primary-50 py-2 transition hover:bg-secondary-300 hover:shadow-md hover:duration-100 hover:ease-in mx-auto "
           onClick={handleClick}
         >
           Simular
         </button>
-        
       </div>
-     
-                    
-         <ResponsiveContainer className='w-[75%]'>
-         <BarChart
-          width={200}
-          height={300}
-          data={testData}
-          margin={{
-            top: 50,
-            right: 20,
-            left: 20,
-            bottom: 0,
-          }}
-        >
-          <defs>
-           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-           <stop offset="5%" stopColor="#5eead4" stopOpacity={0.8}/>
-            <stop offset="95%" stopColor="#5eead4" stopOpacity={0}/>
-         </linearGradient>
-         </defs>
-          <CartesianGrid strokeDasharray="3 3" />
-          
-          <Tooltip content={<CustomTooltip/>} animationEasing='ease-in-out' />
-          <Bar dataKey="valor" type='monotone' fill='url(#colorUv)' fillOpacity={1} stroke='black' strokeWidth={1} /> 
-        </BarChart>
-      </ResponsiveContainer> 
 
+      {/* Para os gráficos usei o recharts */}
+      <div className="w-fit md:w-auto relative h-fit rounded-lg  shadow-lg bg-[#e8e8e8] p-2 col-span-2 lg:justify-items-stretch ">
+        <ResponsiveContainer width="100%" height={596}>
+          <BarChart
+            data={testData}
+            margin={{
+              top: 25,
+              right: 20,
+              left: 20,
+              bottom: 25
+            }}
+          >
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#5eead4" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#5eead4" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <Tooltip
+              content={<CustomTooltip />}
+              animationEasing="ease-in-out"
+            />
+            <Bar
+              dataKey="valor"
+              type="monotone"
+              fill="url(#colorUv)"
+              fillOpacity={1}
+              stroke="black"
+              strokeWidth={1}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* uma segunda ou terceira coluna, talvez um popUp com o modelo a ser simulado */}
       
+
+      {/* Aqui penso em apresentar os resultados em uma tabela */}
+      {/* <div className=" flex flex-col lg:flex-row max-w-full w-full lg:order-3 m-6 p-4 shadow-lg rounded bg-[#e8e8e8]">
+        resultados
+      </div> */}
+      </div>
     </section>
-    
   )
-        
 }

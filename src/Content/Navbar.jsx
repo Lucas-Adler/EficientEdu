@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import logo from '../Images/Logo-Full.png'
 import { FiMenu } from 'react-icons/fi'
 
@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed w-full border-b-2 py-2 z-40 backdrop-blur-3xl font-display">
-      <div className="flex w-full max-w-full flex-wrap items-center justify-between px-[8%] lg:mx-auto lg:max-w-7xl">
+      <div className="flex w-full max-w-full flex-wrap items-center justify-between px-[8%] lg:mx-auto lg:max-w-[75%]">
         <img src={logo} width={150} height={50} alt="aria" />
 
         <FiMenu
