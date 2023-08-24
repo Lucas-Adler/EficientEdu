@@ -1,6 +1,3 @@
-
-
-
 import './index.css';
 import Navbar from './Content/Navbar'
 import Home from './Content/Home'
