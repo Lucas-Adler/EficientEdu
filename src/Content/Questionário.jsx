@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 
 export default function questionario() {
@@ -9,7 +9,7 @@ export default function questionario() {
       <button className="mt-5 mb-2 px-6 h-12 uppercase font-semibold tracking-wider border-2 border-black bg-primary-50
             text-black 
             hover:bg-secondary-300 hover:transition hover:ease-in hover:duration-200 hover:shadow-md
-            dark:border-white rounded" href="">Questinário 01</button>
+             rounded" href="">Questinário 01</button>
         </div>
      
       </section>

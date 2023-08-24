@@ -26,7 +26,7 @@ export default function Home() {
             <button className="mt-5 mb-2  mx-auto h-12 w-64  font-clashBold text-2xl tracking-wider border-2 bg-primary-50
             
             hover:bg-secondary-300 hover:transition hover:ease-in hover:duration-200 hover:shadow-md
-            dark:border-white rounded-lg" href="#Sim">Começe Agora!</button></a>
+             rounded-lg" href="#Sim">Começe Agora!</button></a>
             <br/>
             <a onClick={() => setIsHeadlessOpen(true)} className="italic text-primary-500 mx-auto cursor-pointer">Saiba Mais →</a> 
             </div>
