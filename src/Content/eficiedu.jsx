@@ -41,17 +41,17 @@ const orientation = [
 ]
 
 const brise_v = [
-  { id: 1, name: 'sem brise', code: '0', unavaible: false },
-  { id: 2, name: '4 unidades', code: '4', unavaible: false },
-  { id: 3, name: '6 unidades', code: '6', unavaible: false },
-  { id: 4, name: '8 unidades', code: '8', unavaible: false }
+  { id: 1, name: '(v) sem brise', code: '0', unavaible: false },
+  { id: 2, name: '(v) 4 unidades', code: '4', unavaible: false },
+  { id: 3, name: '(v) 6 unidades', code: '6', unavaible: false },
+  { id: 4, name: '(v) 8 unidades', code: '8', unavaible: false }
 ]
 
 const brise_h = [
-  { id: 1, name: 'sem brise', code: '0', unavaible: false },
-  { id: 1, name: '10 cm', code: '10', unavaible: false },
-  { id: 1, name: '20 cm', code: '20', unavaible: false },
-  { id: 1, name: '30 cm', code: '30', unavaible: false }
+  { id: 1, name: '(h) sem brise', code: '0', unavaible: false },
+  { id: 1, name: '(h) 10 cm', code: '10', unavaible: false },
+  { id: 1, name: '(h) 20 cm', code: '20', unavaible: false },
+  { id: 1, name: '(h) 30 cm', code: '30', unavaible: false }
 ]
 
 export default function eficiedu() {
@@ -591,8 +591,8 @@ export default function eficiedu() {
         </div>
 
         {/* Para os gráficos usei o recharts */}
-        <div className="w-fit md:w-auto relative h-fit rounded-lg  shadow-lg bg-[#e8e8e8] p-2 col-span-2 lg:justify-items-stretch ">
-          <recharts.ResponsiveContainer width="100%" height={596}>
+        <div className="min-w-[500px] lg:w-full relative h-[750px] rounded-lg  shadow-lg bg-[#e8e8e8] p-2 mt-8 col-span-2 lg:justify-items-stretch ">
+          <recharts.ResponsiveContainer width="100%" height="100%">
             <recharts.BarChart
               data={testData}
               margin={{
