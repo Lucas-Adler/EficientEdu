@@ -3,7 +3,7 @@ import Navbar from './Content/Navbar'
 import Home from './Content/Home'
 import Sim from './Content/eficiedu'
 import Contato from './Content/Contato'
-import Questionario from "./Content/Questionário";
+
 
 
 
@@ -15,7 +15,6 @@ import Questionario from "./Content/Questionário";
          <Navbar/>
          <Home />
          <Sim />
-         <Questionario/>
          <Contato />
          
         

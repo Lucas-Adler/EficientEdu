@@ -35,11 +35,7 @@ export default function Navbar() {
               >
                 App
               </a>
-              <a
-                className="block py-2 font-semibold hover:text-secondary-500 md:inline-block lg:px-5"
-                href="#Questionario">
-                Questionário
-              </a>
+          
               <a
                 className="block py-2 font-semibold hover:text-secondary-500 md:inline-block lg:px-5"
                 href="#Contato"
