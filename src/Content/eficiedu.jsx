@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/20/solid'
 import { data } from './DataBase'
 import * as recharts from 'recharts'
-import office from '../Images/iso-office-2.png'
+import office from '../Images/Iso-office-2.png'
 
 const city = [
   { id: 1, name: 'Florianopolis - SC', code: 'Fln', unavailable: false },
